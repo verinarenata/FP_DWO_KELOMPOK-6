@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<Schema name="adventureworksdw">
+
+<Cube name="Fakta" defaultMeasure="JumlahPembelian">
+<Table name="faktapembelian"/>
+<Dimension name="Time" foreignKey="id_waktu">
+<Hierarchy hasAll="true" allMemberName="All Times" primaryKey="id_waktu">
+<Table name="faktapembelian" />
+<Level name="id_waktu" column="id_waktu"/>
+      
+</Hierarchy>
+</Dimension>
+<Dimension name="Pembelian" foreignKey="id_pembelian">
+<Hierarchy hasAll="true" allMemberName="All Transaction" primaryKey="id_pembelian">
+<Table name="faktapembelian" />
+<Level name="id_pembelian" column="id_pembelian"/>
+       
+</Hierarchy>
+</Dimension>
+<Dimension name="Vendor" foreignKey="id_vendor">
+<Hierarchy hasAll="true" allMemberName="All Vendor" primaryKey="id_vendor">
+<Table name="faktapembelian" />
+<Level name="id_vendor" column="id_vendor"/>
+       
+</Hierarchy>
+</Dimension>
+<Dimension name="Product" foreignKey="id_produk">
+<Hierarchy hasAll="true" allMemberName="All product" primaryKey="id_produk">
+<Table name="faktapembelian" />
+<Level name="id_produk" column="id_produk" uniqueMembers="true"/>
+<Level name="Category" column="kategori_produk" uniqueMembers="false"></Level>
+<Level name="Product Name" column="nama_produk" uniqueMembers="true"></Level>
+        
+</Hierarchy>
+</Dimension>
+<Measure name="JumlahPembelian" column="jumlah_pembelian" aggregator="sum" formatString="$#,###.00"/>
+<Measure name="HargaPembelian" column="harga_pembelian" aggregator="sum"/>
+</Cube>
+</Schema>
